@@ -31,8 +31,8 @@ This project is a movie streaming platform integrated with x402 for secure and s
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/enlomy/x402-micropayments.git
-   cd x402-micropayments
+   git clone https://github.com/enlomy/x402.git
+   cd x402
    ```
 
 2. Install dependencies:
