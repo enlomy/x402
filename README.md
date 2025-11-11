@@ -1,5 +1,6 @@
 # x402 Micropayments
 
+x402 micropayments is payment platform for using x402 (x402 API, x402 integration)
 This project is a movie streaming platform integrated with x402 for secure and seamless payments. Users can pay and watch movies directly through the x402 payment gateway. The backend handles x402 API interactions, ensuring reliable transaction processing and subscription management using x402 services.
 
 ## Features
