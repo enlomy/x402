@@ -250,6 +250,94 @@
     
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script>
+      // Custom Cursor
+      (function() {
+        // Create cursor elements
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        document.body.appendChild(cursor);
+
+        const cursorDot = document.createElement('div');
+        cursorDot.className = 'custom-cursor-dot';
+        document.body.appendChild(cursorDot);
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let dotX = 0;
+        let dotY = 0;
+
+        // Mouse move event
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        // Animate cursor with smooth following
+        function animateCursor() {
+          // Smooth following for outer cursor
+          cursorX += (mouseX - cursorX) * 0.1;
+          cursorY += (mouseY - cursorY) * 0.1;
+          cursor.style.left = cursorX + 'px';
+          cursor.style.top = cursorY + 'px';
+
+          // Faster following for dot
+          dotX += (mouseX - dotX) * 0.3;
+          dotY += (mouseY - dotY) * 0.3;
+          cursorDot.style.left = dotX + 'px';
+          cursorDot.style.top = dotY + 'px';
+
+          requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Hover effects
+        const hoverElements = document.querySelectorAll('a, button, .cta-button, .nav-link, .feature-card, .step, input, textarea, select');
+        
+        hoverElements.forEach(el => {
+          el.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover');
+            cursorDot.classList.add('hover');
+          });
+          
+          el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover');
+            cursorDot.classList.remove('hover');
+          });
+        });
+
+        // Click effect
+        document.addEventListener('mousedown', () => {
+          cursor.classList.add('click');
+          cursorDot.classList.add('click');
+        });
+
+        document.addEventListener('mouseup', () => {
+          cursor.classList.remove('click');
+          cursorDot.classList.remove('click');
+        });
+
+        // Hide cursor when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+          cursor.style.opacity = '0';
+          cursorDot.style.opacity = '0';
+        });
+
+        document.addEventListener('mouseenter', () => {
+          cursor.style.opacity = '1';
+          cursorDot.style.opacity = '1';
+        });
+
+        // Touch devices - hide custom cursor
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+          cursor.style.display = 'none';
+          cursorDot.style.display = 'none';
+          document.body.style.cursor = 'auto';
+          document.documentElement.style.cursor = 'auto';
+        }
+      })();
+      
       // Dynamically update the year
       document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
