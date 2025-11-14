@@ -69,7 +69,7 @@ app.use((req, res) => {
 export default app;
 
 // Start the server for local development
-const PORT = process.env.PORT || 4021;
+const PORT = process.env.PORT || 402;
 app.listen(PORT, () => {
   log(`Server is running on http://localhost:${PORT}`);
 });
