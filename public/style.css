@@ -113,6 +113,51 @@ a, button, .cta-button, .nav-link, .theme-toggle,
   background: var(--primary-color);
 }
 
+/* Wave/Ripple Effect */
+.cursor-wave {
+  position: fixed;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  opacity: 0.7;
+  animation: waveExpand 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  box-shadow: 0 0 8px rgba(0, 82, 255, 0.3);
+}
+
+@keyframes waveExpand {
+  0% {
+    width: 15px;
+    height: 15px;
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.cursor-wave-2 {
+  animation-delay: 0.15s;
+  border-color: var(--gradient-end);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.cursor-wave-3 {
+  animation-delay: 0.3s;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(5, 177, 105, 0.3);
+}
+
 /* Navigation */
 .navbar {
   background: var(--bg-primary);
