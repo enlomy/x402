@@ -172,11 +172,40 @@
         let cursorY = 0;
         let dotX = 0;
         let dotY = 0;
+        let lastWaveTime = 0;
+        const waveThrottle = 50; // milliseconds between waves
+
+        // Create wave effect
+        function createWave(x, y) {
+          const now = Date.now();
+          if (now - lastWaveTime < waveThrottle) return;
+          lastWaveTime = now;
+
+          // Create multiple wave rings (reduced to 2)
+          for (let i = 0; i < 2; i++) {
+            setTimeout(() => {
+              const wave = document.createElement('div');
+              wave.className = 'cursor-wave';
+              if (i === 1) wave.classList.add('cursor-wave-2');
+              wave.style.left = x + 'px';
+              wave.style.top = y + 'px';
+              document.body.appendChild(wave);
+
+              // Remove wave element after animation
+              setTimeout(() => {
+                if (wave.parentNode) {
+                  wave.parentNode.removeChild(wave);
+                }
+              }, 1000);
+            }, i * 50);
+          }
+        }
 
         // Mouse move event
         document.addEventListener('mousemove', (e) => {
           mouseX = e.clientX;
           mouseY = e.clientY;
+          createWave(mouseX, mouseY);
         });
 
         // Animate cursor with smooth following
@@ -234,12 +263,15 @@
           cursorDot.style.opacity = '1';
         });
 
-        // Touch devices - hide custom cursor
+        // Touch devices - hide custom cursor and disable waves
         if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
           cursor.style.display = 'none';
           cursorDot.style.display = 'none';
           document.body.style.cursor = 'auto';
           document.documentElement.style.cursor = 'auto';
+          // Disable wave creation on touch devices
+          const originalCreateWave = createWave;
+          createWave = function() { return; };
         }
       })();
       
